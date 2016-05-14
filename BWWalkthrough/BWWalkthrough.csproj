@@ -46,6 +46,7 @@
     <Compile Include="BWWalkthroughViewController.cs" />
     <Compile Include="IBWWalkthroughPage.cs" />
     <Compile Include="IBWWalkthroughViewControllerDelegate.cs" />
+    <Compile Include="WalkthroughAnimationType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -5,13 +5,6 @@ using UIKit;
 
 namespace BWWalkthrough
 {
-	public enum WalkthroughAnimationType
-	{
-		Linear,
-		Curve,
-		Zoom,
-		InOut
-	}
 
 	public class BWWalkthroughViewController : UIViewController, IUIScrollViewDelegate
 	{
