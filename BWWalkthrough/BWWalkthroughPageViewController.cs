@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
@@ -15,16 +16,17 @@ namespace BWWalkthrough
 
 		private List<int> notAnimatableViews = new List<int>();// Array of views' tags that should not be animated during the scroll/transition
 
-		[Export("Speed"), Browsable(true)]
+
 		private CGPoint _speed = new CGPoint(0, 0);
+		[Export("Speed"), Browsable(true)]
 		public CGPoint Speed
 		{
 			get
 			{
 				return _speed;
 			}
-			set 
-			{ 
+			set
+			{
 				_speed = value;
 			}
 		}
@@ -39,8 +41,8 @@ namespace BWWalkthrough
 		[Export("AnimationType"), Browsable(true)]
 		public String AnimationType
 		{
-			get { return this.AnimationType.ToString();}
-			set { this.AnimationType = value;}
+			get { return this.AnimationType.ToString(); }
+			set { this.AnimationType = value; }
 		}
 
 		[Export("AnimateAlpha"), Browsable(true)]
@@ -71,7 +73,7 @@ namespace BWWalkthrough
 				_speed.X += SpeedVariance.X;
 				_speed.Y += SpeedVariance.Y;
 
-				if (notAnimatableViews.Contains((int)v.Tag))
+				if (!notAnimatableViews.Contains((int)v.Tag))
 				{
 					subsWeights.Add(Speed);
 				}
@@ -120,23 +122,59 @@ namespace BWWalkthrough
 
 		void animationCurve(int i, float offset)
 		{
-			throw new NotImplementedException();
+			var transform = CATransform3D.Identity;
+
+			var x = (float)(1.0 - offset) * 10;
+			transform = CATransform3D.MakeTranslation((System.nfloat)((Math.Pow(x, 3) - (x * 25)) * subsWeights[i].X), (System.nfloat)((Math.Pow(x, 3) - (x * 20)) * subsWeights[i].Y), 0);
+			applyTransform(i, transform);
 		}
 
 		void animationZoom(int i, float offset)
 		{
-			throw new NotImplementedException();
+			var transform = CATransform3D.Identity;
+			var tmpOffset = offset;
+
+			if (tmpOffset > 1.0)
+			{
+					tmpOffset = (float)(1.0 + (1.0 - tmpOffset));
+			}
+			var scale = (float)(1.0 - tmpOffset);
+			//TODO: Check --> CATransform3DScale(transform, 1 - scale, 1 - scale, 1.0);
+			transform = CATransform3D.MakeScale(1 - scale, 1 - scale, (System.nfloat)1.0);
+			applyTransform(i, transform);
 		}
 
 		void animationInOut(int i, float offset)
 		{
-			throw new NotImplementedException();
+			var transform = CATransform3D.Identity;
+			var tmpOffset = offset;
+
+			if (tmpOffset > 1.0)
+			{
+				tmpOffset = (float)(1.0 + (1.0 - tmpOffset));
+			}
+			transform = CATransform3D.MakeTranslation((System.nfloat)((1.0 - tmpOffset) * subsWeights[i].X * 100), (System.nfloat)((1.0 - tmpOffset) * subsWeights[i].Y * 100), 0);
+			applyTransform(i, transform);
 		}
 
 		void animationLinear(int i, float offset)
 		{
-			throw new NotImplementedException();
+			var transform = CATransform3D.Identity;
+			var mx = (float)(1.0 - offset) * 100;
+
+			transform = CATransform3D.MakeTranslation(mx * subsWeights[i].X, mx * subsWeights[i].Y, 0);
+			applyTransform(i, transform);
 		}
-}
+
+		void applyTransform(int i, CATransform3D transform)
+		{
+			var subview = View.Subviews[i];
+
+			if (!notAnimatableViews.Contains((int)subview.Tag))
+			{
+				View.Subviews[i].Layer.Transform = transform;
+			}
+		}
+	}
 }
 
