@@ -5,10 +5,10 @@ using UIKit;
 
 namespace BWWalkthrough
 {
-
+	[Register("BWWalkthroughViewController")]
 	public class BWWalkthroughViewController : UIViewController, IUIScrollViewDelegate
 	{
-		public IBWWalkthroughViewControllerDelegate walkDelegate;
+		public IBWWalkthroughViewControllerDelegate walkDelegate { get; set; }
 
 		[Outlet]
 		public UIPageControl pageControl { get; set; }
@@ -22,17 +22,16 @@ namespace BWWalkthrough
 		[Outlet]
 		public UIPageControl closeButton { get; set; }
 
-		public UIScrollView scrollview { get; set;}
+		public UIScrollView scrollview { get; set; }
 
-		private List<UIViewController> controllers = new List<UIViewController>(); 
+		private List<UIViewController> controllers = new List<UIViewController>();
 		private NSLayoutConstraint[] lastViewConstraint;
-
 
 		public int CurrentPage
 		{
 			get
 			{
-				var page =  (int)Math.Ceiling(scrollview.ContentOffset.X / View.Bounds.Size.Width);
+				var page = (int)Math.Ceiling(scrollview.ContentOffset.X / View.Bounds.Size.Width);
 				return page;
 			}
 		}
@@ -46,6 +45,15 @@ namespace BWWalkthrough
 			}
 		}
 
+		public BWWalkthroughViewController(IntPtr handle) : base(handle)
+		{
+			// Note: this .ctor should not contain any initialization logic.
+			scrollview = new UIScrollView();
+			scrollview.ShowsHorizontalScrollIndicator = false;
+			scrollview.ShowsVerticalScrollIndicator = false;
+			scrollview.PagingEnabled = true;
+		}
+
 		public BWWalkthroughViewController(NSCoder coder) : base(coder)
 		{
 			scrollview = new UIScrollView();
@@ -54,7 +62,7 @@ namespace BWWalkthrough
 			scrollview.PagingEnabled = true;
 		}
 
-		public BWWalkthroughViewController(string nibName, NSBundle bundle):base(nibName, bundle)
+		public BWWalkthroughViewController(string nibName, NSBundle bundle) : base(nibName, bundle)
 		{
 			scrollview = new UIScrollView();
 		}
@@ -63,7 +71,7 @@ namespace BWWalkthrough
 		{
 			base.ViewDidLoad();
 
-			pageControl.TouchUpInside += (sender,e) =>
+			pageControl.TouchUpInside += (sender, e) =>
 			{
 				this.PageControlDidTouch();
 			};
@@ -110,31 +118,33 @@ namespace BWWalkthrough
 		}
 
 
-		[Action]
+		[Action("NextPage")]
 		public void NextPage()
 		{
-			if ((CurrentPage + 1) < controllers.Count) {
+			if ((CurrentPage + 1) < controllers.Count)
+			{
 				walkDelegate?.WalkthroughNextButtonPressed();
 				gotoPage(CurrentPage + 1);
 			}
 		}
 
-		[Action]
+		[Action("PreviousPage")]
 		public void PreviousPage()
 		{
-			if (CurrentPage > 0) {
+			if (CurrentPage > 0)
+			{
 				walkDelegate?.WalkthroughPrevButtonPressed();
 				gotoPage(CurrentPage - 1);
 			}
 		}
 
-		[Action]
-		public void Close(object sender)
+		[Action("Close")]
+		public void Close()
 		{
 			walkDelegate?.WalkthroughCloseButtonPressed();
 		}
 
-		[Action]
+		[Action("PageControlDidTouch")]
 		public void PageControlDidTouch()
 		{
 			if (pageControl != null)

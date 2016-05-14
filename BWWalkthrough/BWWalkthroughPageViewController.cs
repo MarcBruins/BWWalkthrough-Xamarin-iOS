@@ -8,6 +8,7 @@ using UIKit;
 
 namespace BWWalkthrough
 {
+	[Register("BWWalkthroughPageViewController")]
 	public class BWWalkthroughPageViewController : UIViewController, IBWWalkthroughPage
 	{
 		private WalkthroughAnimationType animation = WalkthroughAnimationType.Linear;
@@ -15,7 +16,6 @@ namespace BWWalkthrough
 		private List<CGPoint> subsWeights;
 
 		private List<int> notAnimatableViews = new List<int>();// Array of views' tags that should not be animated during the scroll/transition
-
 
 		private CGPoint _speed = new CGPoint(0, 0);
 		[Export("Speed"), Browsable(true)]

@@ -9,18 +9,12 @@ using System.CodeDom.Compiler;
 
 namespace sample
 {
-	[Register ("ViewController")]
-	partial class ViewController
+	[Register ("CustomPageViewController")]
+	partial class CustomPageViewController
 	{
-		[Outlet]
-		UIKit.UIButton btnShow { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (btnShow != null) {
-				btnShow.Dispose ();
-				btnShow = null;
-			}
 		}
 	}
 }

@@ -85,6 +85,22 @@
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\bg.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\bg.imageset\bg%402x.jpg" />
+    <ImageAsset Include="Resources\Assets.xcassets\cloud1.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\cloud1.imageset\cloud1%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\cloud3.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\cloud3.imageset\cloud3%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\iPhone.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\iPhone.imageset\iPhone%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\iPhoneScreen.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\iPhoneScreen.imageset\iPhoneScreen%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\img3.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\img3.imageset\img3%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\leftarrow.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\leftarrow.imageset\leftarrow%402x.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\rightarrow.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Assets.xcassets\rightarrow.imageset\rightarrow%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -92,6 +108,8 @@
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="Resources\Walkthrough.storyboard" />
+    <InterfaceDefinition Include="Walkthrough.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -104,12 +122,19 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomPageViewController.cs" />
+    <Compile Include="CustomPageViewController.designer.cs">
+      <DependentUpon>CustomPageViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BWWalkthrough\BWWalkthrough.csproj">
       <Project>{2F98DABB-45D7-41A2-AB47-D171AEB7DCF3}</Project>
       <Name>BWWalkthrough</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\.DS_Store" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
