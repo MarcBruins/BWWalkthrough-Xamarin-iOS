@@ -61,6 +61,10 @@ namespace BWWalkthrough
 			set;
 		}
 
+		public BWWalkthroughPageViewController(IntPtr handle) : base(handle)
+		{
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();

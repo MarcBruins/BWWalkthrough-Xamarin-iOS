@@ -24,26 +24,18 @@ namespace sample
 			// Get view controllers and build the walkthrough
 			var stb = UIStoryboard.FromName("Walkthrough",null);
 
-			var x = stb.InstantiateViewController("walk");
 			BWWalkthroughViewController walkthrough = stb.InstantiateViewController("walk") as BWWalkthroughViewController;
-
 			var page_zero = stb.InstantiateViewController("walk0");
-
 			var page_one = stb.InstantiateViewController("walk1");
-
 			var page_two = stb.InstantiateViewController("walk2");
-
 			var page_three = stb.InstantiateViewController("walk3");
 
 			// Attach the pages to the master
 			walkthrough.walkDelegate = this;
 
 			walkthrough.AddViewController(page_one);
-
 			walkthrough.AddViewController(page_two);
-
-	//		walkthrough.AddViewController(page_three);
-
+			walkthrough.AddViewController(page_three);
 			walkthrough.AddViewController(page_zero);
 
 			this.PresentViewController(walkthrough, true, null);

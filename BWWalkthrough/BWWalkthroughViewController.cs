@@ -47,7 +47,6 @@ namespace BWWalkthrough
 
 		public BWWalkthroughViewController(IntPtr handle) : base(handle)
 		{
-			// Note: this .ctor should not contain any initialization logic.
 			scrollview = new UIScrollView();
 			scrollview.ShowsHorizontalScrollIndicator = false;
 			scrollview.ShowsVerticalScrollIndicator = false;
@@ -80,7 +79,6 @@ namespace BWWalkthrough
 			scrollview.TranslatesAutoresizingMaskIntoConstraints = false;
 
 			View.InsertSubview(scrollview, 0);
-
 
 			View.AddConstraints(
 				NSLayoutConstraint.FromVisualFormat(
@@ -117,7 +115,6 @@ namespace BWWalkthrough
 			}
 		}
 
-
 		[Action("NextPage")]
 		public void NextPage()
 		{
@@ -128,7 +125,7 @@ namespace BWWalkthrough
 			}
 		}
 
-		[Action("PreviousPage")]
+		[Action("PrevPage")]
 		public void PreviousPage()
 		{
 			if (CurrentPage > 0)
@@ -165,12 +162,11 @@ namespace BWWalkthrough
 		}
 
 
-		public void AddViewController(UIViewController vc){
-        
+		public void AddViewController(UIViewController vc)
+		{
 			controllers.Add(vc);
 
 			// Setup the viewController view
-
 			vc.View.TranslatesAutoresizingMaskIntoConstraints = false;
 			scrollview.AddSubview(vc.View);
 
@@ -213,7 +209,100 @@ namespace BWWalkthrough
 				}
 			}
 		}
-    }
+
+
+		/** 
+		  Update the UI to reflect the current walkthrough status
+		  **/
+		private void updateUI()
+		{
+
+			// Get the current page
+
+			pageControl.CurrentPage = CurrentPage;
+
+			// Notify delegate about the new page
+
+			walkDelegate.WalkthroughPageDidChange(CurrentPage);
+	
+			// Hide/Show navigation buttons
+
+			if (CurrentPage == controllers.Count - 1){
+				nextButton.Hidden = true;
+			}
+
+			else
+			{
+				nextButton.Hidden = false;
+   
+			}
+
+			if (CurrentPage == 0){
+				prevButton.Hidden = true;
+			}
+			else
+			{
+				prevButton.Hidden = false;
+			}
+		}
+
+		// MARK: - Scrollview Delegate -
+		[Export("scrollViewDidScroll:")]
+		public void Scrolled(UIScrollView scrollView)
+		{
+			for (int i = 0; i < controllers.Count; i++)
+			{
+				var vc = controllers[i] as IBWWalkthroughPage;
+				if (vc != null)
+				{
+					var mx = ((scrollview.ContentOffset.X + View.Bounds.Size.Width) - (View.Bounds.Size.Width * (i))) / View.Bounds.Size.Width;
+
+					// While sliding to the "next" slide (from right to left), the "current" slide changes its offset from 1.0 to 2.0 while the "next" slide changes it from 0.0 to 1.0
+					// While sliding to the "previous" slide (left to right), the current slide changes its offset from 1.0 to 0.0 while the "previous" slide changes it from 2.0 to 1.0
+					// The other pages update their offsets whith values like 2.0, 3.0, -2.0... depending on their positions and on the status of the walkthrough
+					// This value can be used on the previous, current and next page to perform custom animations on page's subviews.
+
+					// print the mx value to get more info.
+					// println("\(i):\(mx)")
+
+					// We animate only the previous, current and next page
+
+					if (mx < 2 && mx > -2.0)
+					{
+						vc.WalkThroughDidScroll((float)scrollview.ContentOffset.X, (float)mx);
+					}
+
+				}
+			}
+		}
+
+		[Export("scrollViewDidEndDecelerating:")]
+		public void DecelerationEnded(UIScrollView scrollView)
+		{
+			updateUI();
+		}
+
+
+		[Export("scrollViewDidEndScrollingAnimation:")]
+		public void ScrollAnimationEnded(UIScrollView scrollView)
+		{
+			updateUI();
+		}
+
+		///* WIP */
+		//override public func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
+		//{
+		//	print("CHANGE")
+	
+		//}
+
+		//override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
+		//{
+		//	print("SIZE")
+	
+		//}
+
+	}
 
 }
 

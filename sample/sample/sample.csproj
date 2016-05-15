@@ -122,9 +122,9 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomPageViewController.cs" />
-    <Compile Include="CustomPageViewController.designer.cs">
-      <DependentUpon>CustomPageViewController.cs</DependentUpon>
+    <Compile Include="CustomViewController.cs" />
+    <Compile Include="CustomViewController.designer.cs">
+      <DependentUpon>CustomViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

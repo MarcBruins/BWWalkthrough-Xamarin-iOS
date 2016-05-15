@@ -20,6 +20,9 @@
                         <subviews>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="JJV-op-rSU">
                                 <rect key="frame" x="281" y="263" width="39" height="37"/>
+                                <connections>
+                                    <action selector="PageControlDidTouch" destination="txJ-gV-nlq" eventType="valueChanged" id="cdu-I7-4mW"/>
+                                </connections>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4oX-Xj-2Xl">
                                 <rect key="frame" x="535" y="30" width="45" height="29"/>
@@ -29,6 +32,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="Close" destination="txJ-gV-nlq" eventType="touchUpInside" id="oSG-nt-fK4"/>
                                     <action selector="close:" destination="txJ-gV-nlq" eventType="touchUpInside" id="lTD-i1-A4i"/>
                                 </connections>
                             </button>
@@ -38,6 +42,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="PrevPage" destination="txJ-gV-nlq" eventType="touchUpInside" id="iI4-xt-gSa"/>
                                     <action selector="nextPage" destination="txJ-gV-nlq" eventType="touchUpInside" id="nCE-Ct-FR1"/>
                                     <action selector="prevPage" destination="txJ-gV-nlq" eventType="touchUpInside" id="e66-mf-b68"/>
                                 </connections>
@@ -86,7 +91,7 @@
         <!--Walkthrough Page View Controller-->
         <scene sceneID="hhd-kh-VF3">
             <objects>
-                <viewController storyboardIdentifier="walk2" id="XYk-C3-fzG" customClass="BWWalkthroughPageViewController" customModule="BWWalkthrough" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="walk2" id="XYk-C3-fzG" customClass="BWWalkthroughPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Pn5-dG-6Iv"/>
                         <viewControllerLayoutGuide type="bottom" id="Qmb-H6-Z3E"/>
@@ -162,7 +167,7 @@
         <!--Walkthrough Page View Controller-->
         <scene sceneID="8Tf-D7-UzW">
             <objects>
-                <viewController storyboardIdentifier="walk0" id="a0v-IS-EXc" customClass="BWWalkthroughPageViewController" customModule="BWWalkthrough" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="walk0" id="a0v-IS-EXc" customClass="BWWalkthroughPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="At2-Nx-1U5"/>
                         <viewControllerLayoutGuide type="bottom" id="Q0s-D3-K13"/>
@@ -221,10 +226,10 @@
             </objects>
             <point key="canvasLocation" x="767" y="-185"/>
         </scene>
-        <!--Custom Page View Controller-->
+        <!--Custom View Controller-->
         <scene sceneID="5mS-PA-mNj">
             <objects>
-                <viewController storyboardIdentifier="walk3" id="2tr-5e-K2b" customClass="CustomPageViewController" customModule="sample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="walk3" id="2tr-5e-K2b" customClass="CustomViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P0S-X1-bG6"/>
                         <viewControllerLayoutGuide type="bottom" id="Deg-VZ-J6w"/>
@@ -264,9 +269,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="bS2-IJ-fx7" id="jqU-GI-bQP"/>
-                        <outlet property="textLabel" destination="dDt-ZO-IbC" id="dxu-Kq-D5R"/>
-                        <outlet property="titleLabel" destination="KGW-Jb-IhM" id="siH-96-rVV"/>
+                        <outlet property="imageView" destination="bS2-IJ-fx7" id="nd5-n4-IO4"/>
+                        <outlet property="textLabel" destination="dDt-ZO-IbC" id="deW-pt-ef1"/>
+                        <outlet property="titleLabel" destination="KGW-Jb-IhM" id="PhT-uz-Fbo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEM-Yv-NRT" userLabel="First Responder" sceneMemberID="firstResponder"/>
