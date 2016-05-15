@@ -1,5 +1,5 @@
 # BWWalkthrough-Xamarin-iOS
-port of https://github.com/ariok/BWWalkthrough
+Port of https://github.com/ariok/BWWalkthrough all credits go to Yari D'areglia
 
 Author: Yari D'areglia [@Bitwaker](http://www.twitter.com/bitwaker)
 
