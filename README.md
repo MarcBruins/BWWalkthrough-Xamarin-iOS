@@ -1,9 +1,6 @@
 # BWWalkthrough-Xamarin-iOS
 port of https://github.com/ariok/BWWalkthrough
 
-BWWalkthrough
-======================
-
 Author: Yari D'areglia [@Bitwaker](http://www.twitter.com/bitwaker)
 
 ## What is BWWalkthrough?
