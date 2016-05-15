@@ -49,7 +49,7 @@ namespace sample
 
 		public void WalkthroughCloseButtonPressed()
 		{
-	//		throw new NotImplementedException();
+			this.DismissViewController(true, null);
 		}
 
 		public void WalkthroughNextButtonPressed()

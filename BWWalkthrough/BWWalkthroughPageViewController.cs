@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using CoreAnimation;
@@ -9,7 +9,7 @@ using UIKit;
 namespace BWWalkthrough
 {
 	[Register("BWWalkthroughPageViewController")]
-	public class BWWalkthroughPageViewController : UIViewController, IBWWalkthroughPage
+	public partial class BWWalkthroughPageViewController : UIViewController, IBWWalkthroughPage
 	{
 		private WalkthroughAnimationType animation = WalkthroughAnimationType.Linear;
 
