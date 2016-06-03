@@ -3,7 +3,7 @@ Port of https://github.com/ariok/BWWalkthrough all credits go to Yari D'areglia
 
 Author: Yari D'areglia [@Bitwaker](http://www.twitter.com/bitwaker)
 
-Nuget: https://www.nuget.org/packages/BWWalkthrough/1.0.0
+Nuget: https://www.nuget.org/packages/BWWalkthrough
 ## What is BWWalkthrough?
 BWWalkthrough (BWWT) is a class that helps you create **Walkthroughs** for your iOS Apps.
 It differs from other similar classes in that there is no rigid template; BWWT is just a layer placed over your controllers that gives you complete **freedom on the design of your views.**.
