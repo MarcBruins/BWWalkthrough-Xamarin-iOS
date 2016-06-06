@@ -133,8 +133,5 @@
       <Name>BWWalkthrough</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\.DS_Store" />
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

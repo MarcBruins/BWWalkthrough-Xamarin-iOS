@@ -39,10 +39,10 @@ namespace BWWalkthrough
 		} = new CGPoint(0, 0);
 
 		[Export("AnimationType"), Browsable(true)]
-		public String AnimationType
+		public string AnimationType
 		{
-			get { return this.AnimationType.ToString(); }
-			set { this.AnimationType = value; }
+			get { return this.animation.ToString(); }
+			set { this.animation = (WalkthroughAnimationType)Enum.Parse(typeof(WalkthroughAnimationType), value); }
 		}
 
 		[Export("AnimateAlpha"), Browsable(true)]
