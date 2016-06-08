@@ -71,8 +71,6 @@ namespace BWWalkthrough
 		{
 			base.ViewDidLoad();
 
-			UpdateUI();
-
 			pageControl.TouchUpInside += (sender, e) =>
 			{
 				this.PageControlDidTouch();
@@ -111,6 +109,9 @@ namespace BWWalkthrough
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
+
+			UpdateUI();
+
 			if (pageControl != null)
 			{
 				pageControl.Pages = controllers.Count;
@@ -234,7 +235,6 @@ namespace BWWalkthrough
 			else
 			{
 				nextButton.Hidden = false;
-
 			}
 
 			if (CurrentPage == 0)
