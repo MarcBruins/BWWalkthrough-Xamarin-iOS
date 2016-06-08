@@ -8,6 +8,9 @@ namespace BWWalkthrough
 	[Register("BWWalkthroughViewController")]
 	public class BWWalkthroughViewController : UIViewController, IUIScrollViewDelegate
 	{
+		private List<UIViewController> controllers = new List<UIViewController>();
+		private NSLayoutConstraint[] lastViewConstraint;
+
 		public IBWWalkthroughViewControllerDelegate walkDelegate { get; set; }
 
 		[Outlet]
@@ -24,8 +27,6 @@ namespace BWWalkthrough
 
 		public UIScrollView scrollview { get; set; }
 
-		private List<UIViewController> controllers = new List<UIViewController>();
-		private NSLayoutConstraint[] lastViewConstraint;
 
 		public int CurrentPage
 		{
@@ -69,6 +70,8 @@ namespace BWWalkthrough
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			UpdateUI();
 
 			pageControl.TouchUpInside += (sender, e) =>
 			{
@@ -121,7 +124,7 @@ namespace BWWalkthrough
 			if ((CurrentPage + 1) < controllers.Count)
 			{
 				walkDelegate?.WalkthroughNextButtonPressed();
-				gotoPage(CurrentPage + 1);
+				GotoPage(CurrentPage + 1);
 			}
 		}
 
@@ -131,7 +134,7 @@ namespace BWWalkthrough
 			if (CurrentPage > 0)
 			{
 				walkDelegate?.WalkthroughPrevButtonPressed();
-				gotoPage(CurrentPage - 1);
+				GotoPage(CurrentPage - 1);
 			}
 		}
 
@@ -146,13 +149,14 @@ namespace BWWalkthrough
 		{
 			if (pageControl != null)
 			{
-				gotoPage(pageControl.CurrentPage);
+				GotoPage(pageControl.CurrentPage);
 			}
 		}
 
-		private void gotoPage(nint page)
+		private void GotoPage(nint page)
 		{
-			if (page < controllers.Count){
+			if (page < controllers.Count)
+			{
 				var frame = scrollview.Frame;
 
 				frame.X = page * frame.Size.Width;
@@ -160,7 +164,6 @@ namespace BWWalkthrough
 				scrollview.ScrollRectToVisible(frame, true);
 			}
 		}
-
 
 		public void AddViewController(UIViewController vc)
 		{
@@ -181,7 +184,6 @@ namespace BWWalkthrough
 			vc.View.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:[view(w)]", 0, metridDict, viewDict));
 			scrollview.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|-0-[view]|", 0, null, viewDict));
 
-
 			// cnst for position: 1st element
 
 			if (controllers.Count == 1)
@@ -195,7 +197,7 @@ namespace BWWalkthrough
 
 				if (previousView != null)
 				{
-					var prevDict = new NSDictionary("previousView", previousView,"view", vc.View);
+					var prevDict = new NSDictionary("previousView", previousView, "view", vc.View);
 					scrollview.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:[previousView]-0-[view]", 0, null, prevDict));
 
 					if (lastViewConstraint != null)
@@ -203,41 +205,40 @@ namespace BWWalkthrough
 						scrollview.RemoveConstraints(lastViewConstraint);
 					}
 
-
 					lastViewConstraint = NSLayoutConstraint.FromVisualFormat("H:[view]-0-|", 0, null, viewDict);
 					scrollview.AddConstraints(lastViewConstraint);
 				}
 			}
 		}
 
-
 		/** 
 		  Update the UI to reflect the current walkthrough status
-		  **/
-		private void updateUI()
+		 **/
+		private void UpdateUI()
 		{
-
 			// Get the current page
 
 			pageControl.CurrentPage = CurrentPage;
 
 			// Notify delegate about the new page
 
-			walkDelegate.WalkthroughPageDidChange(CurrentPage);
-	
+			walkDelegate?.WalkthroughPageDidChange(CurrentPage);
+
 			// Hide/Show navigation buttons
 
-			if (CurrentPage == controllers.Count - 1){
+			if (CurrentPage == controllers.Count - 1)
+			{
 				nextButton.Hidden = true;
 			}
 
 			else
 			{
 				nextButton.Hidden = false;
-   
+
 			}
 
-			if (CurrentPage == 0){
+			if (CurrentPage == 0)
+			{
 				prevButton.Hidden = true;
 			}
 			else
@@ -263,7 +264,7 @@ namespace BWWalkthrough
 					// This value can be used on the previous, current and next page to perform custom animations on page's subviews.
 
 					// print the mx value to get more info.
-					// println("\(i):\(mx)")
+					//System.Diagnostics.Debug.Print($"{i}:{mx}");
 
 					// We animate only the previous, current and next page
 
@@ -271,7 +272,6 @@ namespace BWWalkthrough
 					{
 						vc.WalkThroughDidScroll((float)scrollview.ContentOffset.X, (float)mx);
 					}
-
 				}
 			}
 		}
@@ -279,30 +279,27 @@ namespace BWWalkthrough
 		[Export("scrollViewDidEndDecelerating:")]
 		public void DecelerationEnded(UIScrollView scrollView)
 		{
-			updateUI();
+			UpdateUI();
 		}
-
 
 		[Export("scrollViewDidEndScrollingAnimation:")]
 		public void ScrollAnimationEnded(UIScrollView scrollView)
 		{
-			updateUI();
+			UpdateUI();
 		}
 
 		///* WIP */
 		//override public func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
 		//{
 		//	print("CHANGE")
-	
+
 		//}
 
 		//override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
 		//{
 		//	print("SIZE")
-	
+
 		//}
-
 	}
-
 }
 
