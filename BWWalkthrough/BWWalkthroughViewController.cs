@@ -66,6 +66,9 @@ namespace BWWalkthrough
         public BWWalkthroughViewController(string nibName, NSBundle bundle) : base(nibName, bundle)
         {
             Scrollview = new UIScrollView();
+            Scrollview.ShowsHorizontalScrollIndicator = false;
+            Scrollview.ShowsVerticalScrollIndicator = false;
+            Scrollview.PagingEnabled = true;
         }
 
         public override void ViewDidLoad()
