@@ -300,7 +300,7 @@ namespace BWWalkthrough
         private void adjustOffsetForTransition()
         {
             var currentPage = this.CurrentPage;
-            var popTime = new DispatchTime(DispatchTime.Now, (long)(NSEC_PER_SEC * 0.1) / NSEC_PER_SEC));
+            var popTime = new DispatchTime(DispatchTime.Now, (long)(NSEC_PER_SEC * 0.1) / NSEC_PER_SEC);
             DispatchQueue.MainQueue.DispatchAfter(popTime, () =>
              {
                  GotoPage(currentPage);
