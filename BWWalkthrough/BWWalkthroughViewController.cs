@@ -114,7 +114,7 @@ namespace BWWalkthrough
         {
             base.ViewWillAppear(animated);
 
-            UpdateUI();
+            updateUI();
 
             if (PageControl != null)
             {
@@ -218,18 +218,16 @@ namespace BWWalkthrough
         /** 
 		  Update the UI to reflect the current walkthrough status
 		 **/
-        private void UpdateUI()
+        private void updateUI()
         {
-            // Get the current page
-
-            PageControl.CurrentPage = CurrentPage;
+            // Get the current page if pagecontrol is set
+            if (PageControl != null)
+                PageControl.CurrentPage = CurrentPage;
 
             // Notify delegate about the new page
-
             walkDelegate?.WalkthroughPageDidChange(CurrentPage);
 
             // Hide/Show navigation buttons
-
             if (NextButton != null)
             {
                 if (CurrentPage == controllers.Count - 1)
@@ -288,13 +286,13 @@ namespace BWWalkthrough
         [Export("scrollViewDidEndDecelerating:")]
         public void DecelerationEnded(UIScrollView scrollView)
         {
-            UpdateUI();
+            updateUI();
         }
 
         [Export("scrollViewDidEndScrollingAnimation:")]
         public void ScrollAnimationEnded(UIScrollView scrollView)
         {
-            UpdateUI();
+            updateUI();
         }
 
         private void adjustOffsetForTransition()
