@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CoreFoundation;
 using Foundation;
 using UIKit;
 
@@ -8,6 +9,7 @@ namespace BWWalkthrough
     [Register("BWWalkthroughViewController")]
     public class BWWalkthroughViewController : UIViewController, IUIScrollViewDelegate
     {
+        private const int NSEC_PER_SEC = 1000000000;
         private List<UIViewController> controllers = new List<UIViewController>();
         private NSLayoutConstraint[] lastViewConstraint;
 
@@ -295,18 +297,25 @@ namespace BWWalkthrough
             UpdateUI();
         }
 
-        ///* WIP */
-        //override public func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
-        //{
-        //	print("CHANGE")
+        private void adjustOffsetForTransition()
+        {
+            var currentPage = this.CurrentPage;
+            var popTime = new DispatchTime(DispatchTime.Now, (long)(NSEC_PER_SEC * 0.1) / NSEC_PER_SEC));
+            DispatchQueue.MainQueue.DispatchAfter(popTime, () =>
+             {
+                 GotoPage(currentPage);
+             });
+        }
 
-        //}
+        public override void WillTransitionToTraitCollection(UITraitCollection traitCollection, IUIViewControllerTransitionCoordinator coordinator)
+        {
+            adjustOffsetForTransition();
+        }
 
-        //override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
-        //{
-        //	print("SIZE")
-
-        //}
+        public override void ViewWillTransitionToSize(CoreGraphics.CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
+        {
+            adjustOffsetForTransition();
+        }
     }
 }
 

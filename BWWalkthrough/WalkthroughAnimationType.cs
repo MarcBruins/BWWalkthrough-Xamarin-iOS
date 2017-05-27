@@ -1,12 +1,12 @@
 ﻿
 namespace BWWalkthrough
 {
-	public enum WalkthroughAnimationType
-	{
-		Linear,
-		Curve,
-		Zoom,
-		InOut
-	}
+    public enum WalkthroughAnimationType
+    {
+        Linear,
+        Curve,
+        Zoom,
+        InOut
+    }
 }
 
