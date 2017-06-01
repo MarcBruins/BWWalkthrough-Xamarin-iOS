@@ -10,7 +10,7 @@ namespace BWWalkthrough
     public class BWWalkthroughViewController : UIViewController, IUIScrollViewDelegate
     {
         private const int NSEC_PER_SEC = 1000000000;
-        private List<UIViewController> controllers = new List<UIViewController>();
+        public List<UIViewController> Controllers = new List<UIViewController>();
         private NSLayoutConstraint[] lastViewConstraint;
 
         public IBWWalkthroughViewControllerDelegate walkDelegate { get; set; }
@@ -43,7 +43,7 @@ namespace BWWalkthrough
             get
             {
                 var currentPage = this.CurrentPage;
-                return controllers[currentPage];
+                return Controllers[currentPage];
             }
         }
 
@@ -121,7 +121,7 @@ namespace BWWalkthrough
 
             if (PageControl != null)
             {
-                PageControl.Pages = controllers.Count;
+                PageControl.Pages = Controllers.Count;
                 PageControl.CurrentPage = 0;
             }
         }
@@ -129,7 +129,7 @@ namespace BWWalkthrough
         [Action("NextPage")]
         public void NextPage()
         {
-            if ((CurrentPage + 1) < controllers.Count)
+            if ((CurrentPage + 1) < Controllers.Count)
             {
                 walkDelegate?.WalkthroughNextButtonPressed();
                 GotoPage(CurrentPage + 1);
@@ -163,7 +163,7 @@ namespace BWWalkthrough
 
         private void GotoPage(nint page)
         {
-            if (page < controllers.Count)
+            if (page < Controllers.Count)
             {
                 var frame = Scrollview.Frame;
 
@@ -175,7 +175,7 @@ namespace BWWalkthrough
 
         public void AddViewController(UIViewController vc)
         {
-            controllers.Add(vc);
+            Controllers.Add(vc);
 
             // Setup the viewController view
             vc.View.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -193,13 +193,13 @@ namespace BWWalkthrough
 
             // cnst for position: 1st element
 
-            if (controllers.Count == 1)
+            if (Controllers.Count == 1)
             {
                 Scrollview.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|-0-[view]", 0, null, viewDict));
             }
             else
             {
-                var previousVC = controllers[controllers.Count - 2];
+                var previousVC = Controllers[Controllers.Count - 2];
                 var previousView = previousVC?.View;
 
                 if (previousView != null)
@@ -233,7 +233,7 @@ namespace BWWalkthrough
             // Hide/Show navigation buttons
             if (NextButton != null)
             {
-                if (CurrentPage == controllers.Count - 1)
+                if (CurrentPage == Controllers.Count - 1)
                 {
                     NextButton.Hidden = true;
                 }
@@ -261,9 +261,9 @@ namespace BWWalkthrough
         [Export("scrollViewDidScroll:")]
         public virtual void Scrolled(UIScrollView scrollView)
         {
-            for (int i = 0; i < controllers.Count; i++)
+            for (int i = 0; i < Controllers.Count; i++)
             {
-                var vc = controllers[i] as IBWWalkthroughPage;
+                var vc = Controllers[i] as IBWWalkthroughPage;
                 if (vc != null)
                 {
                     var mx = ((Scrollview.ContentOffset.X + View.Bounds.Size.Width) - (View.Bounds.Size.Width * (i))) / View.Bounds.Size.Width;
