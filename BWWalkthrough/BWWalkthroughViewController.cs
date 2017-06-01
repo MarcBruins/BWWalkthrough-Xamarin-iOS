@@ -259,7 +259,7 @@ namespace BWWalkthrough
 
         // MARK: - Scrollview Delegate -
         [Export("scrollViewDidScroll:")]
-        public void Scrolled(UIScrollView scrollView)
+        public virtual void Scrolled(UIScrollView scrollView)
         {
             for (int i = 0; i < controllers.Count; i++)
             {
