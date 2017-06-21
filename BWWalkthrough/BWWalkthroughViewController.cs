@@ -19,32 +19,41 @@ namespace BWWalkthrough
         public UIPageControl PageControl { get; set; }
 
         [Outlet]
-        public UIPageControl NextButton { get; set; }
+        public UIButton NextButton { get; set; }
 
         [Outlet]
-        public UIPageControl PreviousButton { get; set; }
+        public UIButton PreviousButton { get; set; }
 
         [Outlet]
-        public UIPageControl CloseButton { get; set; }
+        public UIButton CloseButton { get; set; }
 
         public UIScrollView Scrollview { get; set; }
 
+        private int page = 0;
         public int CurrentPage
         {
             get
             {
-                var page = (int)Math.Ceiling(Scrollview.ContentOffset.X / View.Bounds.Size.Width);
+                page = (int)Math.Ceiling(Scrollview.ContentOffset.X / View.Bounds.Size.Width);
                 return page;
+            }
+            set
+            {
+                page = value;
+
+                var contentOffset = Scrollview.ContentOffset;
+                contentOffset.X = (View.Bounds.Size.Width * page);
+                Scrollview.ContentOffset = contentOffset;
             }
         }
 
-        public UIViewController CurrentViewController
+        public override void ViewDidLayoutSubviews()
         {
-            get
-            {
-                var currentPage = this.CurrentPage;
-                return Controllers[currentPage];
-            }
+            base.ViewDidLayoutSubviews();
+
+            var contentOffset = Scrollview.ContentOffset;
+            contentOffset.X = (View.Bounds.Size.Width * page);
+            Scrollview.ContentOffset = contentOffset;
         }
 
         public BWWalkthroughViewController(IntPtr handle) : base(handle)
@@ -122,7 +131,7 @@ namespace BWWalkthrough
             if (PageControl != null)
             {
                 PageControl.Pages = Controllers.Count;
-                PageControl.CurrentPage = 0;
+                PageControl.CurrentPage = CurrentPage;
             }
         }
 
@@ -150,6 +159,7 @@ namespace BWWalkthrough
         public void Close()
         {
             walkDelegate?.WalkthroughCloseButtonPressed();
+            GotoPage(0);
         }
 
         [Action("PageControlDidTouch")]
@@ -192,7 +202,6 @@ namespace BWWalkthrough
             Scrollview.AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|-0-[view]|", 0, null, viewDict));
 
             // cnst for position: 1st element
-
             if (Controllers.Count == 1)
             {
                 Scrollview.AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|-0-[view]", 0, null, viewDict));
@@ -218,9 +227,9 @@ namespace BWWalkthrough
             }
         }
 
-        /** 
-		  Update the UI to reflect the current walkthrough status
-		 **/
+        /// <summary>
+        /// Update the UI to reflect the current walkthrough status.
+        /// </summary>
         private void updateUI()
         {
             // Get the current page if pagecontrol is set
@@ -302,10 +311,7 @@ namespace BWWalkthrough
         {
             var currentPage = this.CurrentPage;
             var popTime = new DispatchTime(DispatchTime.Now, (long)(NSEC_PER_SEC * 0.1) / NSEC_PER_SEC);
-            DispatchQueue.MainQueue.DispatchAfter(popTime, () =>
-             {
-                 GotoPage(currentPage);
-             });
+            DispatchQueue.MainQueue.DispatchAfter(popTime, () => GotoPage(currentPage));
         }
 
         public override void WillTransitionToTraitCollection(UITraitCollection traitCollection, IUIViewControllerTransitionCoordinator coordinator)

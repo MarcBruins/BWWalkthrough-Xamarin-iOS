@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -97,10 +97,10 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="closeButton" destination="4oX-Xj-2Xl" id="jDn-px-6iW"/>
-                        <outlet property="nextButton" destination="IEr-zB-euS" id="Ljx-P3-TQb"/>
-                        <outlet property="pageControl" destination="JJV-op-rSU" id="gia-X7-j9f"/>
-                        <outlet property="prevButton" destination="3Ad-hv-8C6" id="G3h-V1-1Nj"/>
+                        <outlet property="CloseButton" destination="4oX-Xj-2Xl" id="iRZ-uh-sXE"/>
+                        <outlet property="NextButton" destination="IEr-zB-euS" id="Qjp-VU-y2f"/>
+                        <outlet property="PageControl" destination="JJV-op-rSU" id="heh-KQ-8kF"/>
+                        <outlet property="PreviousButton" destination="3Ad-hv-8C6" id="pap-HG-a1M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9eF-Ui-KFq" sceneMemberID="firstResponder"/>
@@ -308,7 +308,7 @@
         <!--Walkthrough Page View Controller-->
         <scene sceneID="ywq-dR-M81">
             <objects>
-                <viewController storyboardIdentifier="walk1" id="JbJ-Ac-xgR" customClass="BWWalkthroughPageViewController" customModule="BWWalkthrough" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="walk1" id="JbJ-Ac-xgR" customClass="BWWalkthroughPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P6H-j1-FXv"/>
                         <viewControllerLayoutGuide type="bottom" id="bbg-ej-M6o"/>

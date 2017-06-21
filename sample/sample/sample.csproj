@@ -73,9 +73,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="BWWalkthrough">
-      <HintPath>..\..\packages\BWWalkthrough-Xamarin-iOS.0.9.3\lib\Xamarin.iOS10\BWWalkthrough.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
@@ -108,7 +105,6 @@
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -121,6 +117,12 @@
     <Compile Include="CustomViewController.designer.cs">
       <DependentUpon>CustomViewController.cs</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BWWalkthrough\BWWalkthrough.csproj">
+      <Project>{2F98DABB-45D7-41A2-AB47-D171AEB7DCF3}</Project>
+      <Name>BWWalkthrough</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

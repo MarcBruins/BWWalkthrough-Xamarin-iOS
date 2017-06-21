@@ -19,12 +19,14 @@ namespace sample
             btnShow.TouchUpInside += (s, e) => { ShowWalkthrough(); };
         }
 
+        BWWalkthroughViewController walkthrough;
+
         public void ShowWalkthrough()
         {
             // Get view controllers and build the walkthrough
             var stb = UIStoryboard.FromName("Walkthrough", null);
 
-            BWWalkthroughViewController walkthrough = stb.InstantiateViewController("walk") as BWWalkthroughViewController;
+            walkthrough = stb.InstantiateViewController("walk") as BWWalkthroughViewController;
             var page_zero = stb.InstantiateViewController("walk0");
             var page_one = stb.InstantiateViewController("walk1");
             var page_two = stb.InstantiateViewController("walk2");
@@ -37,6 +39,8 @@ namespace sample
             walkthrough.AddViewController(page_two);
             walkthrough.AddViewController(page_three);
             walkthrough.AddViewController(page_zero);
+
+            walkthrough.CurrentPage = 2;
 
             this.PresentViewController(walkthrough, true, null);
         }
